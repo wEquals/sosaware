@@ -53,9 +53,9 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
-                if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency < 0.1 then
+                if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency > 0.1 then
                     aimbot.Enabled = false
-                elseif v.Character:FindFirstChild"Head".Transparency > 0.1 then
+                elseif v.Character:FindFirstChild"Head".Transparency < 0.1 then
                     aimbot.Enabled = true
                 end
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
