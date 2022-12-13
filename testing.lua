@@ -1,4 +1,4 @@
-print("test number 6 invis check")
+print("test number 5 invis check")
 
 -- Settings
 
@@ -56,13 +56,12 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
-                if Head.Transparency > 0.1 and aimbot.InvisibleCheck == true then
+            if Head.Transparency < 1 and aimbot.InvisibleCheck == true then
+                continue
+            end
+        if Head.Transparency > 1 and aimbot.InvisibleCheck == true then
                     return;
-                    end;
-                    if Head.Transparency < 0.1 and aimbot.InvisibleCheck == true or false then
-                        print("continuing")
-                        continue
-                    end
+                end;
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
                     if aimbot.VisibilityCheck then
