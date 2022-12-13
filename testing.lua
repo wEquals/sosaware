@@ -1,5 +1,5 @@
 -- Settings
-print("loading settings ong")
+print("fr fr ong")
 local aimbot = {
     Enabled = false,
     Key = Enum.UserInputType.MouseButton2,
@@ -54,7 +54,7 @@ aimbot.GetClosestPart = function()
                     continue
                 end
                 if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency > 1 then
-                    break;
+                    return;
                 end;
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
