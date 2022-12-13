@@ -7,6 +7,7 @@ local aimbot = {
     PlayerPart = 'Head',
     FriendlyPlayers = {},
     TeamCheck = false,
+    InvisibleCheck = false,
     AliveCheck = false,
     VisibilityCheck = false,
     Smoothing = 0,
@@ -63,6 +64,8 @@ aimbot.GetClosestPart = function()
                         if raycast then
                             return
                         end
+                        if Torso.Transparency == constants["1"] and aimbot.InvisibleCheck == true then 
+                            return 
                     end
                     table.insert(parts, v.Character[aimbot.PlayerPart])
                 end
