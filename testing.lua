@@ -1,5 +1,5 @@
 -- Settings
-print("nig nog productions")
+print("nig nogian")
 local aimbot = {
     Enabled = false,
     Key = Enum.UserInputType.MouseButton2,
@@ -54,8 +54,10 @@ aimbot.GetClosestPart = function()
                     continue
                 end
                 if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency < 0.1 then
-                    return;
-                end;
+                    aimbot.Enabled = false
+                elseif v.Character:FindFirstChild"Head".Transparency > 0.1 then
+                    aimbot.Enabled = true
+                end
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
                     if aimbot.VisibilityCheck then
