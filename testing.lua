@@ -1,7 +1,5 @@
-print("test number 565 invis check")
-
 -- Settings
-
+print("loading settings ong")
 local aimbot = {
     Enabled = false,
     Key = Enum.UserInputType.MouseButton2,
@@ -9,13 +7,13 @@ local aimbot = {
     PlayerPart = 'Head',
     FriendlyPlayers = {},
     TeamCheck = false,
-    InvisibleCheck = false,
     AliveCheck = false,
     VisibilityCheck = false,
+    InvisibleCheck = false,
     Smoothing = 0,
     SmoothingMethod = 0,
     Offset = {0, 0},
-    FOV = 50,
+    FOV = 200,
     ShowFOV = false,
     CustomParts = {},
     FOVCircleColor = Color3.fromRGB(255, 255, 255)
@@ -23,7 +21,6 @@ local aimbot = {
 
 -- Variables
 
-local Head = functions["FindFirstChild"](V.Character, "Head")
 local UserInputService = game:service'UserInputService'
 local Players = game:service'Players'
 local RunService = game:service'RunService'
@@ -56,11 +53,8 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
-            if Head.Transparency < 1 and aimbot.InvisibleCheck == true then
-                continue
-            end
-        if Head.Transparency > 1 and aimbot.InvisibleCheck == true then
-                    return;
+                if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency > 1 then
+                    break;
                 end;
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
