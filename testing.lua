@@ -1,5 +1,5 @@
 -- Settings
-print("fr fr ong")
+print("nig nog productions")
 local aimbot = {
     Enabled = false,
     Key = Enum.UserInputType.MouseButton2,
@@ -53,7 +53,7 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
-                if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency > 1 then
+                if aimbot.InvisibleCheck and v.Character and v.Character:FindFirstChildWhichIsA'Humanoid' and v.Character:FindFirstChild"Head".Transparency < 0.1 then
                     return;
                 end;
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
