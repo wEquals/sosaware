@@ -23,7 +23,7 @@ local aimbot = {
 
 -- Variables
 
-local Torso = functions["FindFirstChild"](V.Character, "Torso")
+local Head = functions["FindFirstChild"](V.Character, "Head")
 local UserInputService = game:service'UserInputService'
 local Players = game:service'Players'
 local RunService = game:service'RunService'
@@ -56,13 +56,13 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
-                if (Torso.Transparency ~= 1 and aimbot.InvisibleCheck == true) and aimbot.Enabled == true then 
-                    print("nigga invis fr")
-                    break
-                end
-                if Torso.Transparency == 1 and aimbot.Enabled == true then 
-                    continue
-                end
+                if Head.Transparency > 0.1 and aimbot.InvisibleCheck == true then
+                    return;
+                    end;
+                    if Head.Transparency < 0.1 and aimbot.InvisibleCheck == true then
+                        print("continuing")
+                        continue
+                    end
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
                     if aimbot.VisibilityCheck then
