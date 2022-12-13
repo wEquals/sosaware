@@ -1,5 +1,5 @@
+print("loading aimbot")
 -- Settings
-
 local aimbot = {
     Enabled = false,
     Key = Enum.UserInputType.MouseButton2,
