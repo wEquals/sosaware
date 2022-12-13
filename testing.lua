@@ -54,7 +54,7 @@ aimbot.GetClosestPart = function()
                     continue
                 end
                 local Torso = functions["FindFirstChild"](V.Character, "Torso") or functions["FindFirstChild"](V.Character, "UpperTorso")
-                if Torso.Transparency == constants["1"] and aimbot.InvisibleCheck == true then 
+                if Torso.Transparency == constants["1"] and aimbot.InvisibleCheck == false then 
                     continue 
                 end
                 if (Torso.Transparency ~= constants["1"] and aimbot.InvisibleCheck == true) and aimbot.Enabled == true then 
