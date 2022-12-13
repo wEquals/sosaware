@@ -1,5 +1,7 @@
-print("loading aimbot")
+print("test number 5 invis check")
+
 -- Settings
+
 local aimbot = {
     Enabled = false,
     Key = Enum.UserInputType.MouseButton2,
@@ -21,6 +23,7 @@ local aimbot = {
 
 -- Variables
 
+local Torso = functions["FindFirstChild"](V.Character, "Torso")
 local UserInputService = game:service'UserInputService'
 local Players = game:service'Players'
 local RunService = game:service'RunService'
@@ -53,13 +56,12 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
-                local Torso = functions["FindFirstChild"](V.Character, "Torso") or functions["FindFirstChild"](V.Character, "UpperTorso")
-                if (Torso.Transparency ~= 1 and aimbot.InvisibleCheck) and aimbot.Enabled == true then 
+                if (Torso.Transparency ~= 1 and aimbot.InvisibleCheck == true) and aimbot.Enabled == true then 
                     print("nigga invis fr")
                     break
                 end
                 if Torso.Transparency == 1 and aimbot.Enabled == true then 
-                    continue 
+                    continue
                 end
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
