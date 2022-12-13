@@ -59,7 +59,7 @@ aimbot.GetClosestPart = function()
                 if Head.Transparency > 0.1 and aimbot.InvisibleCheck == true then
                     return;
                     end;
-                    if Head.Transparency < 0.1 and aimbot.InvisibleCheck == true then
+                    if Head.Transparency < 0.1 and aimbot.InvisibleCheck == true or false then
                         print("continuing")
                         continue
                     end
