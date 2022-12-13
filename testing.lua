@@ -53,6 +53,13 @@ aimbot.GetClosestPart = function()
                 if aimbot.TeamCheck and v.TeamColor == plr.TeamColor then
                     continue
                 end
+                local Torso = functions["FindFirstChild"](V.Character, "Torso") or functions["FindFirstChild"](V.Character, "UpperTorso")
+                if Torso.Transparency == constants["1"] and aimbot.InvisibleCheck == true then 
+                    return 
+                end
+                if (Torso.Transparency ~= constants["1"] and framework.flags["aimbotInvisible"])  or not framework.flags["aimbotInvisible"] then 
+                    
+                end
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
                     if aimbot.VisibilityCheck then
@@ -64,14 +71,7 @@ aimbot.GetClosestPart = function()
                         if raycast then
                             return
                         end
-                        local Torso = functions["FindFirstChild"](V.Character, "Torso") or functions["FindFirstChild"](V.Character, "UpperTorso")
-                        if (Torso.Transparency ~= constants["1"]) then 
-                            break
-                        end
-                        if Torso.Transparency == constants["1"] and aimbot.InvisibleCheck == true then 
-                            return 
                     end
-                end
                     table.insert(parts, v.Character[aimbot.PlayerPart])
                 end
             end
