@@ -1,5 +1,5 @@
 
-print("working")
+local License = "LKYNGS-QA6DWG-PB2Z40-VCJH96-TDL85J-4EB73W"
 --obfascate this bit downwards
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
