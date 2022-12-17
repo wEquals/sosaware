@@ -304,4 +304,4 @@ end)
 	end,
  })
  --loading configuration
- Rayfield:LoadConfiguration()
+Rayfield:LoadConfiguration()
