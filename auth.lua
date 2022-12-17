@@ -1,5 +1,5 @@
 
-
+print("working")
 --obfascate this bit downwards
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
