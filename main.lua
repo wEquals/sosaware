@@ -13,9 +13,6 @@ aimbot.Players = true -- is aimbot for default player characters enabled
 aimbot.PlayerPart = 'Head' -- part of default player character to aim
 aimbot.InvisibleCheck = false
 
-ESP:Toggle(false)
-
-
 
 local Window = Rayfield:CreateWindow({
 	Name = "sosaWare",
@@ -204,7 +201,11 @@ local Toggle = Tab:CreateToggle({
 	CurrentValue = false,
 	Flag = "TeamCheckESP", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
-		ESP.TeamMates = Value
+		if Value then
+			ESP.TeamMates = true
+		else
+			ESP.TeamMates = false
+		end
 	end,
 })
 
