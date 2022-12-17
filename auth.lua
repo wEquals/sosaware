@@ -1,5 +1,3 @@
---dont obfascate the license cause they need to put it in there
-local License = "LKYNGS-QA6DWG-PB2Z40-VCJH96-TDL85J-4EB73W" --* Your License to use this script.
 
 
 --obfascate this bit downwards
