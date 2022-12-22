@@ -29,7 +29,7 @@ local Window = Rayfield:CreateWindow({
 		Subtitle = "Key System",
 		Note = "Join the discord (discord.gg/3Px6TDU2)",
 		SaveKey = true,
-		Key = "sosaware"
+		Key = "sosaware" or "hi"
 	}
 })
 
@@ -51,15 +51,6 @@ local Tab = Window:CreateTab("Aimbot", 4483362458) -- Title, Image
 local Section = Tab:CreateSection("Aimbot Settings")
 
 local Toggle = Tab:CreateToggle({
-	Name = "Invisible check",
-	CurrentValue = false,
-	Flag = "Aimlock", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Value)
-		aimbot.InvisibleCheck = Value
-	end,
-})
-
-local Toggle = Tab:CreateToggle({
 	Name = "Enable Aimlock",
 	CurrentValue = false,
 	Flag = "Aimlock", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -68,7 +59,14 @@ local Toggle = Tab:CreateToggle({
 	end,
 })
 
--- hit part below
+local Toggle = Tab:CreateToggle({
+	Name = "Invisible check",
+	CurrentValue = false,
+	Flag = "Aimlock", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		aimbot.InvisibleCheck = Value
+	end,
+})
 
 local Dropdown = Tab:CreateDropdown({
 	Name = "HitPart",
@@ -108,6 +106,32 @@ local Dropdown = Tab:CreateDropdown({
 	end,
  })
 
+ local Dropdown = Tab:CreateDropdown({
+	Name = "Aimbot Key",
+	Options = {"F1","F2","F3","E","Right Mouse Button","Left Mouse Button","Scroll Wheel","Shift"},
+	CurrentOption = "Right Mouse Button",
+	Flag = "HitKeY", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Option)
+		print("Option")
+		if Option == "F1" then
+			aimbot.Key = Enum.KeyCode.F1
+		elseif Option == "F2" then
+			aimbot.Key = Enum.KeyCode.F2
+		elseif Option == "F3" then
+			aimbot.Key = Enum.KeyCode.F3
+		elseif Option == "E" then
+			aimbot.Key = Enum.KeyCode.E
+		elseif Option == "Right Mouse Button" then
+			aimbot.Key = Enum.UserInputType.MouseButton2
+		elseif Option == "Left Mouse Button" then
+			aimbot.Key = Enum.UserInputType.MouseButton1
+		elseif Option == "Shift" then
+			aimbot.Key = Enum.UserInputType.Shift
+		elseif Option == "Scroll Wheel" then
+			aimbot.Key = Enum.UserInputType.MouseWheel
+		end
+	end,
+ })
 
 local Slider = Tab:CreateSlider({
 	Name = "Smoothing",
@@ -197,14 +221,14 @@ local ColorPicker = Tab:CreateColorPicker({
 local Paragraph = Tab:CreateParagraph({Title = "Misc ESP Settings", Content = "Everything below is Misc ESP settings"})
 
 local Toggle = Tab:CreateToggle({
-	Name = "Team Check",
+	Name = "Disable Team Check",
 	CurrentValue = false,
 	Flag = "TeamCheckESP", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 		if Value then
-			ESP.TeamMates = true
-		else
 			ESP.TeamMates = false
+		else
+			ESP.TeamMates = true
 		end
 	end,
 })
@@ -272,6 +296,97 @@ local Button = Tab:CreateButton({
 
 local Paragraph = Tab:CreateParagraph({Title = "Fun Scripts", Content = "Everything below is fun scripts"})
 
+local Button = Tab:CreateButton({
+	Name = "Kill All",
+	Callback = function()
+		local damage = 100
+		local pname = game.Players.LocalPlayer.Name
+		Players = game:GetService("Players")
+		for i, player in pairs(Players:GetPlayers()) do
+		if player.Name ~= pname then
+		local tbl_main =
+		{
+		  game:GetService("Workspace")[player.Name].Humanoid,
+		  damage,
+		  0,
+		  0
+		}
+		game:GetService("ReplicatedStorage")["ACS_Engine"].Eventos.Damage:FireServer(unpack(tbl_main))
+		end
+		end
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Click to Kill",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local mouse = player:GetMouse()
+		mouse.Button1Down:connect(function()
+		local mT = mouse.Target
+		local dead = mT.Parent
+		local damage = 100
+		print(mT)
+		if dead.ClassName == "Model" then
+		local tbl_main =
+		{
+		  game:GetService("Workspace")[dead.Name].Humanoid,
+		  damage,
+		  0,
+		  0
+		}
+		game:GetService("ReplicatedStorage")["ACS_Engine"].Eventos.Damage:FireServer(unpack(tbl_main))
+		else
+		if mT.Name == "Handle" then
+		local tbl_main =
+		{
+		  game:GetService("Workspace")[dead.Parent.Name].Humanoid,
+		  damage,
+		  0,
+		  0
+		}
+		game:GetService("ReplicatedStorage")["ACS_Engine"].Eventos.Damage:FireServer(unpack(tbl_main))
+		end
+		end
+		end)		
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Click to TP",
+	Callback = function()
+		local Plr = game:GetService("Players").LocalPlayer
+
+		local Mouse = Plr:GetMouse()
+		
+		 
+		
+		Mouse.Button1Down:connect(function()
+		
+		if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then return end
+		
+		if not Mouse.Target then return end
+		
+		Plr.Character:MoveTo(Mouse.Hit.p)
+		
+		end)
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "ACS DDOS",
+	Callback = function()
+		while true do
+			for i=1,10 do
+			game.ReplicatedStorage.ACS_Engine.Events.ServerBullet:FireServer(Vector3.new(0/0/0),Vector3.new(0/0/0))
+			end
+			task.wait()
+		 end
+	end,
+})
+
+local Paragraph = Tab:CreateParagraph({Title = "Fun Scripts", Content = "Everything below is fun scripts"})
+
 local Slider = Tab:CreateSlider({
 	Name = "Walk Speed",
 	Range = {0, 200},
@@ -283,6 +398,7 @@ local Slider = Tab:CreateSlider({
 		hum.WalkSpeed = Value
     end,
 })
+
 
 
 local Button = Tab:CreateButton({
