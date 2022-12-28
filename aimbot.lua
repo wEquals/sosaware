@@ -7,13 +7,12 @@ local aimbot = {
     PlayerPart = 'Head',
     FriendlyPlayers = {},
     TeamCheck = false,
-    InvisibleCheck = false,
     AliveCheck = false,
     VisibilityCheck = false,
     Smoothing = 0,
     SmoothingMethod = 0,
     Offset = {0, 0},
-    FOV = 50,
+    FOV = 200,
     ShowFOV = false,
     CustomParts = {},
     FOVCircleColor = Color3.fromRGB(255, 255, 255)
@@ -64,8 +63,6 @@ aimbot.GetClosestPart = function()
                         if raycast then
                             return
                         end
-                        if Torso.Transparency == constants["1"] and aimbot.InvisibleCheck == true then 
-                            return 
                     end
                     table.insert(parts, v.Character[aimbot.PlayerPart])
                 end
