@@ -56,11 +56,13 @@ aimbot.GetClosestPart = function()
                     local part = v.Character[aimbot.PlayerPart]
                     if aimbot.VisibilityCheck then
                         local Parts = Camera:GetPartsObscuringTarget({Client.Character.Head.Position, PlayerHead.Position}, {Camera, Client.Character})
-                        for i2, v2 in pairs(Parts) do
-                        if v2:IsDescendantOf(v.Character) == false and v2.Transparency == 0 then
-                                Obscuring = true
+                                	for i2, v2 in pairs(Parts) do
+                                    if v2:IsDescendantOf(v.Character) == false and v2.Transparency == 0 then
+                                            continue
+                                    else
+                                        break;
                             end
-                        end
+						end
                     end
                     table.insert(parts, v.Character[aimbot.PlayerPart])
                 end
