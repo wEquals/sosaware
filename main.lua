@@ -1,6 +1,6 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
-local aimbot = loadstring(game:HttpGet'https://github.com/RunDTM/Zeerox-Aimbot/raw/main/library.lua')()
+local aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/wEquals/sosaware/main/aimbot.lua"))()
 local hum = game.Players.LocalPlayer.Character.Humanoid
 local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/wEquals/Solaris-Hub/main/testing.lua'),true))()
 espLib:Load()
@@ -13,9 +13,8 @@ aimbot.Players = true -- is aimbot for default player characters enabled
 aimbot.PlayerPart = 'Head' -- part of default player character to aim
 aimbot.InvisibleCheck = false
 
-
 local Window = Rayfield:CreateWindow({
-	Name = "sosaWare",
+	Name = "sosaware",
 	LoadingTitle = "sosaWare initializing..",
 	LoadingSubtitle = "by sosaWare dev team",
 	ConfigurationSaving = {
@@ -29,7 +28,7 @@ local Window = Rayfield:CreateWindow({
 		Subtitle = "Key System",
 		Note = "Join the discord (discord.gg/3Px6TDU2)",
 		SaveKey = true,
-		Key = "sosaware" or "hi"
+		Key = "sosaware"
 	}
 })
 
@@ -40,7 +39,7 @@ Rayfield:Notify({
 	Image = 4483362458,
 	Actions = { -- Notification Buttons
 	   Ignore = {
-		  Name = "Ignore",
+		  Name = "Okay!",
 		  Callback = function()
 	   end
 	},
@@ -60,11 +59,11 @@ local Toggle = Tab:CreateToggle({
 })
 
 local Toggle = Tab:CreateToggle({
-	Name = "Invisible check",
+	Name = "Visible Check",
 	CurrentValue = false,
-	Flag = "Aimlock", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "VisibleCheck", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
-		aimbot.InvisibleCheck = Value
+		aimbot.VisibilityCheck = Value
 	end,
 })
 
@@ -106,32 +105,6 @@ local Dropdown = Tab:CreateDropdown({
 	end,
  })
 
- local Dropdown = Tab:CreateDropdown({
-	Name = "Aimbot Key",
-	Options = {"F1","F2","F3","E","Right Mouse Button","Left Mouse Button","Scroll Wheel","Shift"},
-	CurrentOption = "Right Mouse Button",
-	Flag = "HitKeY", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-	Callback = function(Option)
-		print("Option")
-		if Option == "F1" then
-			aimbot.Key = Enum.KeyCode.F1
-		elseif Option == "F2" then
-			aimbot.Key = Enum.KeyCode.F2
-		elseif Option == "F3" then
-			aimbot.Key = Enum.KeyCode.F3
-		elseif Option == "E" then
-			aimbot.Key = Enum.KeyCode.E
-		elseif Option == "Right Mouse Button" then
-			aimbot.Key = Enum.UserInputType.MouseButton2
-		elseif Option == "Left Mouse Button" then
-			aimbot.Key = Enum.UserInputType.MouseButton1
-		elseif Option == "Shift" then
-			aimbot.Key = Enum.UserInputType.Shift
-		elseif Option == "Scroll Wheel" then
-			aimbot.Key = Enum.UserInputType.MouseWheel
-		end
-	end,
- })
 
 local Slider = Tab:CreateSlider({
 	Name = "Smoothing",
@@ -221,14 +194,14 @@ local ColorPicker = Tab:CreateColorPicker({
 local Paragraph = Tab:CreateParagraph({Title = "Misc ESP Settings", Content = "Everything below is Misc ESP settings"})
 
 local Toggle = Tab:CreateToggle({
-	Name = "Disable Team Check",
+	Name = "Team Check",
 	CurrentValue = false,
 	Flag = "TeamCheckESP", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 		if Value then
-			ESP.TeamMates = false
-		else
 			ESP.TeamMates = true
+		else
+			ESP.TeamMates = false
 		end
 	end,
 })
@@ -239,6 +212,13 @@ local Toggle = Tab:CreateToggle({
 	Flag = "Names", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 		ESP.Names = Value
+	end,
+})
+
+local Button = Tab:CreateButton({
+	Name = "Radar",
+	Callback = function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Blissful4992/ESPs/main/PlayerRadar.lua"))()
 	end,
 })
 
@@ -283,6 +263,49 @@ local Tab = Window:CreateTab("Silent Aim", 4483362458) -- Title, Image
 local Section = Tab:CreateSection("Silent Aim Settings")
 local Paragraph = Tab:CreateParagraph({Title = "WIP", Content = "Work In Progress"})
 
+local Toggle = Tab:CreateToggle({
+	Name = "Enable Silent Aim",
+	CurrentValue = false,
+	Flag = "Silent", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+        local enabled = Value
+	end,
+})
+
+local Toggle = Tab:CreateToggle({
+	Name = "Enable FOV Circle",
+	CurrentValue = false,
+	Flag = "FOVSilentAim", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		Drawing.new("Circle")
+	end,
+})
+
+local Slider = Tab:CreateSlider({
+	Name = "FOV Size",
+	Range = {0, 100},
+	Increment = 10,
+	Suffix = "",
+	CurrentValue = 10,
+	Flag = "SilentAimFOVSize", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		local fov = Value
+	end,
+ })
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Hit Part",
+   Options = {"Head","Random"},
+   CurrentOption = "Head",
+   Flag = "SilentAimHitPart", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+	if Option == "Head" then
+		getfenv().lock = "Head"
+	elseif Option == "Random" then
+		getfenv().lock = "Random"
+	end
+   end,
+})
 
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 local Section = Tab:CreateSection("Misc Settings")
@@ -291,97 +314,6 @@ local Button = Tab:CreateButton({
 	Name = "Destroy UI",
 	Callback = function()
 		Rayfield:Destroy()
-	end,
-})
-
-local Paragraph = Tab:CreateParagraph({Title = "Fun Scripts", Content = "Everything below is fun scripts"})
-
-local Button = Tab:CreateButton({
-	Name = "Kill All",
-	Callback = function()
-		local damage = 100
-		local pname = game.Players.LocalPlayer.Name
-		Players = game:GetService("Players")
-		for i, player in pairs(Players:GetPlayers()) do
-		if player.Name ~= pname then
-		local tbl_main =
-		{
-		  game:GetService("Workspace")[player.Name].Humanoid,
-		  damage,
-		  0,
-		  0
-		}
-		game:GetService("ReplicatedStorage")["ACS_Engine"].Eventos.Damage:FireServer(unpack(tbl_main))
-		end
-		end
-	end,
-})
-
-local Button = Tab:CreateButton({
-	Name = "Click to Kill",
-	Callback = function()
-		local player = game.Players.LocalPlayer
-		local mouse = player:GetMouse()
-		mouse.Button1Down:connect(function()
-		local mT = mouse.Target
-		local dead = mT.Parent
-		local damage = 100
-		print(mT)
-		if dead.ClassName == "Model" then
-		local tbl_main =
-		{
-		  game:GetService("Workspace")[dead.Name].Humanoid,
-		  damage,
-		  0,
-		  0
-		}
-		game:GetService("ReplicatedStorage")["ACS_Engine"].Eventos.Damage:FireServer(unpack(tbl_main))
-		else
-		if mT.Name == "Handle" then
-		local tbl_main =
-		{
-		  game:GetService("Workspace")[dead.Parent.Name].Humanoid,
-		  damage,
-		  0,
-		  0
-		}
-		game:GetService("ReplicatedStorage")["ACS_Engine"].Eventos.Damage:FireServer(unpack(tbl_main))
-		end
-		end
-		end)		
-	end,
-})
-
-local Button = Tab:CreateButton({
-	Name = "Click to TP",
-	Callback = function()
-		local Plr = game:GetService("Players").LocalPlayer
-
-		local Mouse = Plr:GetMouse()
-		
-		 
-		
-		Mouse.Button1Down:connect(function()
-		
-		if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then return end
-		
-		if not Mouse.Target then return end
-		
-		Plr.Character:MoveTo(Mouse.Hit.p)
-		
-		end)
-	end,
-})
-
-local Button = Tab:CreateButton({
-	Name = "ACS DDOS",
-	Callback = function()
-		while true do
-			for i=1,10 do
-			game.ReplicatedStorage.ACS_Engine.Events.ServerBullet:FireServer(Vector3.new(0/0/0),Vector3.new(0/0/0))
-			end
-			task.wait()
-		 end
 	end,
 })
 
@@ -398,7 +330,6 @@ local Slider = Tab:CreateSlider({
 		hum.WalkSpeed = Value
     end,
 })
-
 
 
 local Button = Tab:CreateButton({
@@ -419,5 +350,5 @@ workspace.CurrentCamera.DescendantAdded:Connect(function(O)
 end)
 	end,
  })
- --loading configuration
+
 Rayfield:LoadConfiguration()
