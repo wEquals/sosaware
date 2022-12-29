@@ -55,14 +55,14 @@ aimbot.GetClosestPart = function()
                 if v.Character and v.Character:FindFirstChild(aimbot.PlayerPart) then
                     local part = v.Character[aimbot.PlayerPart]
                     if aimbot.VisibilityCheck then
-                        local Parts = Camera:GetPartsObscuringTarget({Client.Character.Head.Position, PlayerHead.Position}, {Camera, Client.Character})
-                                	for i2, v2 in pairs(Parts) do
-                                    if v2:IsDescendantOf(v.Character) == false and v2.Transparency == 0 then
-                                            continue
-                                    else
-                                        break;
-                            end
-						end
+                        local params = RaycastParams.new()
+                        params.FilterType = Enum.RaycastFilterType.Blacklist
+                        params.IgnoreWater = true
+                        params.FilterDescendantsInstances = {part.Parent, plr.Character}
+                        local raycast = workspace:Raycast(workspace.CurrentCamera.CFrame.p, (part.CFrame.p - workspace.Camera.CFrame.p), params)
+                        if raycast then
+                            return
+                        end
                     end
                     table.insert(parts, v.Character[aimbot.PlayerPart])
                 end
