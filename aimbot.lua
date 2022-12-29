@@ -59,7 +59,7 @@ aimbot.GetClosestPart = function()
                         params.FilterType = Enum.RaycastFilterType.Blacklist
                         params.IgnoreWater = true
                         params.FilterDescendantsInstances = {part.Parent, plr.Character, Union.Parent}
-                        local raycast = workspace:Raycast(workspace.CurrentCamera.CFrame.p, (part.CFrame.p - workspace.Camera.CFrame.p), (Union.CFrame.p - workspace.Camera.CFrame.p), params)
+                        local raycast = workspace:Raycast(workspace.CurrentCamera.CFrame.p, (Union.CFrame.p - workspace.Camera.CFrame.p), params)
                         if raycast then
                             return
                         end
