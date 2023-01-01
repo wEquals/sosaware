@@ -13,6 +13,35 @@ aimbot.Players = true -- is aimbot for default player characters enabled
 aimbot.PlayerPart = 'Head' -- part of default player character to aim
 aimbot.InvisibleCheck = false
 
+local sosa = {
+    Blatant = {
+        CFrame = {
+            Enabled = nil,
+            Value = nil
+        },
+        FakeLag = {
+            Enabled = nil,
+            Duration = nil
+        },
+    },
+    Visuals = {
+        Local = {
+            Chams = nil,
+            Highlight = {
+                Enabled = nil,
+                FillColor = nil,
+                OutlineColor = nil,
+            },
+            CloneChams = {
+                Enabled = nil,
+                Duration = nil,
+                Color = nil,
+                Material = nil
+            }
+        },
+    }
+}
+
 local Window = Rayfield:CreateWindow({
 	Name = "sosaware",
 	LoadingTitle = "sosaWare initializing..",
@@ -207,9 +236,9 @@ local Toggle = Tab:CreateToggle({
 })
 
 local Toggle = Tab:CreateToggle({
-	Name = "Names ESP",
+	Name = "Misc Information",
 	CurrentValue = true,
-	Flag = "Names", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Flag = "MiscInformation", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
 		ESP.Names = Value
 	end,
@@ -257,6 +286,130 @@ local Toggle = Tab:CreateToggle({
         espLib.options.outOfViewArrows = Value
 	end,
 })
+
+local Tab = Window:CreateTab("Visuals", 4483362458) -- Title, Image
+local Section = Tab:CreateSection("Visual Settings")
+
+local Toggle = Tab:CreateToggle({
+	Name = "Chams",
+	CurrentValue = false,
+	Flag = "LocalChams", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+        sosa.Visuals.Local.Chams = Value
+	end,
+})
+
+task.spawn(function ()
+	while true do
+		wait()
+		if sosa.Visuals.Local.Chams then
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Material = "ForceField"
+				end
+			end
+		else
+			for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Material = "Plastic"
+				end
+			end
+		end
+	end
+end)
+
+local Toggle = Tab:CreateToggle({
+	Name = "Highlight",
+	CurrentValue = false,
+	Flag = "LocalHighlight", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+        sosa.Visuals.Local.Highlight.Enabled = Value
+	end,
+})
+
+local LocalHL = Instance.new("Highlight")
+
+task.spawn(function ()
+    while true do
+        wait()
+        if sosa.Visuals.Local.Highlight.Enabled then
+            LocalHL.Parent = LocalPlayer.Character
+            LocalHL.FillColor = sosa.Visuals.Local.Highlight.FillColor
+            LocalHL.OutlineColor = sosa.Visuals.Local.Highlight.OutlineColor
+        else
+            LocalHL.Parent = game.CoreGui
+        end
+    end
+end)
+
+local Toggle = Tab:CreateToggle({
+	Name = "Clone Chams",
+	CurrentValue = false,
+	Flag = "CloneLPChams", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+        sosa.Visuals.Local.CloneChams.Enabled = Value
+	end,
+})
+
+task.spawn(function ()
+    while true do
+        wait()
+        if sosa.Visuals.Local.CloneChams.Enabled then
+            repeat
+                game.Players.LocalPlayer.Character.Archivable = true
+                local Clone = game.Players.LocalPlayer.Character:Clone()
+                for _,Obj in next, Clone:GetDescendants() do
+                if Obj.Name == "HumanoidRootPart" or Obj:IsA("Humanoid") or Obj:IsA("LocalScript") or Obj:IsA("Script") or Obj:IsA("Decal") then
+                    Obj:Destroy()
+                elseif Obj:IsA("BasePart") or Obj:IsA("Meshpart") or Obj:IsA("Part") then
+                    if Obj.Transparency == 1 then
+                    Obj:Destroy()
+                    else
+                    Obj.CanCollide = false
+                    Obj.Anchored = true
+                    Obj.Material = sosa.Visuals.Local.CloneChams.Material
+                    Obj.Color = sosa.Visuals.Local.CloneChams.Color
+                    Obj.Transparency = 0
+                    Obj.Size = Obj.Size + Vector3.new(0.03, 0.03, 0.03)   
+                end
+            end
+                pcall(function()
+                    Obj.CanCollide = false
+                end)
+            end
+            Clone.Parent = game.Workspace
+            wait(sosa.Visuals.Local.CloneChams.Duration)
+            Clone:Destroy()  
+            until sosa.Visuals.Local.CloneChams.Enabled == false
+        end
+    end
+end)
+
+local Slider = Tab:CreateSlider({
+	Name = "Clone Cham Duration",
+	Range = {0, 100},
+	Increment = 1,
+	Suffix = "",
+	CurrentValue = 1,
+	Flag = "ChamDuration", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		sosa.Visuals.Local.CloneChams.Duration = Value
+	end,
+ })
+
+ local Dropdown = Tab:CreateDropdown({
+	Name = "Clone Cham Material",
+	Options = {'Neon', 'ForceField', 'Plastic'},
+	CurrentOption = "Option 1",
+	Flag = "ChamMaterial", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Option)
+		sosa.Visuals.Local.CloneChams.Material = Option
+	end,
+ })
+
+	local Section = Tab:CreateSection("Visual Colours")
+
+
 
 
 local Tab = Window:CreateTab("Silent Aim", 4483362458) -- Title, Image
@@ -309,6 +462,26 @@ local Dropdown = Tab:CreateDropdown({
 
 local Tab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 local Section = Tab:CreateSection("Misc Settings")
+
+local Toggle = Tab:CreateToggle({
+	Name = "Rainbow Colours",
+	CurrentValue = false,
+	Flag = "RainbowColours", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	Callback = function(Value)
+		if Value then
+			spawn(function()
+				while wait() do
+					aimbot.FOVCircleColor = Color3.fromHSV((tick() % 5 / 5), 1, 1)
+					espLib.options.boxesColor = Color3.fromHSV((tick() % 5 / 5), 1, 1)
+					espLib.options.chamsFillColor = Color3.fromHSV((tick() % 5 / 5), 1, 1)
+					espLib.options.tracerColor = Color3.fromHSV((tick() % 5 / 5), 1, 1)
+					espLib.options.healthBarsColor = Color3.fromHSV((tick() % 5 / 5), 1, 1)
+					ESP.Color = Color3.fromHSV((tick() % 5 / 5), 1, 1)
+				end
+			end)
+		end
+	end,
+})
 
 local Button = Tab:CreateButton({
 	Name = "Destroy UI",
