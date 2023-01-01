@@ -1,5 +1,5 @@
+--dont obfascate the license cause they need to put it in ther
 
-local License = "UALXOI-M645CL-21UCQR-E2XIW9-TJVPHR-5K4BNO"
 --obfascate this bit downwards
 local HttpService = game:GetService("HttpService")
 local StarterGui = game:GetService("StarterGui")
