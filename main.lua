@@ -1,6 +1,6 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
-local aimbot = loadstring(game:HttpGet("https://raw.githubusercontent.com/wEquals/sosaware/main/aimbot.lua"))()
+local aimbot = loadstring(game:HttpGet("https://github.com/RunDTM/Zeerox-Aimbot/raw/main/library.lua"))()
 local hum = game.Players.LocalPlayer.Character.Humanoid
 local espLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/wEquals/Solaris-Hub/main/testing.lua'),true))()
 espLib:Load()
@@ -350,5 +350,6 @@ workspace.CurrentCamera.DescendantAdded:Connect(function(O)
 end)
 	end,
  })
-
+ --loading configuration
 Rayfield:LoadConfiguration()
+end
