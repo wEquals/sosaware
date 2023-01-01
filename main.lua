@@ -352,4 +352,3 @@ end)
  })
  --loading configuration
 Rayfield:LoadConfiguration()
-end
