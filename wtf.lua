@@ -42,7 +42,7 @@ local function wrap(f) coroutine.resume(coroutine.create(f)) end
 if game.GameId == 450749276 then
     getgenv().swimhub_settings.safemode = true
 end
-local title,title2 = ' | beta | v%s | fps %s | ping %s', 'uid: 1 | skidware'
+local title,title2 = ' / beta / v%s / fps %s / ping %s', 'uid: 1 / >w<'
 if getgenv().swimhub_settings == nil then
     getgenv().swimhub_settings = {
         safemode = false, -- anti AC detection with universal
@@ -349,6 +349,8 @@ wrap(function()
         end
     end
 end)
+
+
 
 
 local Visuals = Tabs.Main:AddRightTabbox()
@@ -1244,7 +1246,7 @@ local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(
         FrameCounter = 0;
     end;
 
-    Library:SetWatermark(('skidware | beta | build: dev | uid: 1 | %s fps | %s ms'):format(
+    Library:SetWatermark(('>w< / beta / build: dev / uid: 1 / %s fps / %s ms'):format(
         math.floor(FPS),
         math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
     ));
@@ -1870,22 +1872,6 @@ movetab:AddDropdown('hitsound', {
         game.ReplicatedFirst.CarbonResource.FX.Sounds.BodyHit.SoundId = "rbxassetid://7147954330"
     elseif Value == 'quaver' then
         game.ReplicatedFirst.CarbonResource.FX.Sounds.BodyHit.SoundId = "rbxassetid://7150068039"
-        end
-    end
-})
-
-movetab:AddDropdown('tracers', {
-    Values = {'white'},
-    Default = 1,
-    Multi = false,
-
-    Text = 'tracers',
-    Tooltip = 'tracer bullet',
-
-    Callback = function(Value)
-        if Value == "white" then
-            game:GetService("ReplicatedFirst").CarbonResource.FX.Bullets["AR-15"].trail2.Color = ColorSequence.new("0 1 1 0 0 0 1 1 1 0 0 -nan(ind) -nan(ind) -nan(ind) 0 0.00159 1 1 1 0 0.00318 1 1 1 0 0.0111 1 1 1 0 0.428 1 1 1 0 0.997 1 1 1 0 1 1 1 0 0 ")
-            game:GetService("ReplicatedFirst").CarbonResource.FX.Bullets["AR-15"].trail1.Color = ColorSequence.new("0 1 1 0 0 0 1 1 1 0 0 -nan(ind) -nan(ind) -nan(ind) 0 0.00159 1 1 1 0 0.00318 1 1 1 0 0.0111 1 1 1 0 0.428 1 1 1 0 0.997 1 1 1 0 1 1 1 0 0 ")
         end
     end
 })
